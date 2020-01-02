@@ -2,6 +2,7 @@ from sqlalchemy import Column, DateTime, ForeignKey, String, Text, text
 from sqlalchemy.dialects.mysql import BIGINT, INTEGER, LONGTEXT, TINYINT
 from sqlalchemy.orm import relationship
 from app.models.base import db
+from app.models.issue import Issue
 from app.models.setting import Setting
 
 
@@ -31,10 +32,10 @@ class Content(db.Model):
     issue_content_imgs = Column(Text, comment='问题详情图片')
     solution_imgs = Column(Text, comment='解决详情图片')
 
-    issue_type = relationship('Issue')
-    maintenance = relationship('Setting', primaryjoin=(maintenance_id == Setting.id))
-    partner = relationship('Setting', primaryjoin=(partner_id == Setting.id))
-    status = relationship('Setting', primaryjoin=(status_id == Setting.id))
+    issue_type = relationship(Issue)
+    maintenance = relationship(Setting, primaryjoin=(maintenance_id == Setting.id))
+    partner = relationship(Setting, primaryjoin=(partner_id == Setting.id))
+    status = relationship(Setting, primaryjoin=(status_id == Setting.id))
 
     def __init__(self, id, produce_year, produce_week, produce_month, as_date, as_week, as_cycle,
                  serial_no, partner_id, case_no, country, issue_type_id, issue_title, issue_content,
